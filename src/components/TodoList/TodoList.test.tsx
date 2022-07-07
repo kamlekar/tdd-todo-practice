@@ -1,7 +1,11 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { TodoList } from "./TodoList";
-import { TodoListProvider, TodoListType } from "../../contexts/useTodoContext";
+import {
+  TodoListProvider,
+  TodoListProviderValue,
+  TodoListType,
+} from "../../contexts/useTodoContext";
 
 const mockTodoList: TodoListType = [
   {
@@ -9,9 +13,16 @@ const mockTodoList: TodoListType = [
     completed: false,
   },
 ];
+
+const mockTodoListProviderValue: TodoListProviderValue = {
+  todoList: mockTodoList,
+  setTodoList: () => {},
+  filter: "all",
+  setFilter: () => {},
+};
 const renderComponent = () => {
   render(
-    <TodoListProvider value={[mockTodoList, () => {}]}>
+    <TodoListProvider value={mockTodoListProviderValue}>
       <TodoList />
     </TodoListProvider>
   );

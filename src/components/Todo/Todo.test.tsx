@@ -59,19 +59,50 @@ describe("Todo", () => {
     expect(todoListItems.length).toBe(0);
   });
 
-  it('should update the context todo list, when "All" is selected', () => {
-    renderComponent();
-    const completedRadioElement = screen.getByLabelText("All");
-    fireEvent.click(completedRadioElement);
-    const todoListItems = screen.queryAllByTestId("todo-list-item");
-    expect(todoListItems.length).toBe(0);
-  });
+  // it('should update the context todo list, when "All" is selected', () => {
+  //   renderComponent();
+  //   const completedRadioElement = screen.getByLabelText("All");
+  //   fireEvent.click(completedRadioElement);
+  //   const todoListItems = screen.queryAllByTestId("todo-list-item");
+  //   expect(todoListItems.length).toBe(0);
+  // });
 
-  it('should update the context todo list, when "Completed" is selected', () => {
-    renderComponent();
-    const completedRadioElement = screen.getByLabelText("Completed");
-    fireEvent.click(completedRadioElement);
-    const todoListItems = screen.queryAllByTestId("todo-list-item");
-    expect(todoListItems.length).toBe(0);
+  // it('should update the context todo list, when "Completed" is selected', () => {
+  //   renderComponent();
+  //   const completedRadioElement = screen.getByLabelText("Completed");
+  //   fireEvent.click(completedRadioElement);
+  //   const todoListItems = screen.queryAllByTestId("todo-list-item");
+  //   expect(todoListItems.length).toBe(0);
+  // });
+
+  describe("When one item is added", () => {
+    it('should display 0 items in "Completed" section', () => {
+      renderComponent();
+      const inputElement: HTMLInputElement = screen.getByRole("textbox");
+      fireEvent.change(inputElement, { target: { value: "test" } });
+      fireEvent.keyDown(inputElement, { key: "Enter" });
+
+      const completedRadioElement = screen.getByLabelText("Completed");
+      fireEvent.click(completedRadioElement);
+
+      const todoListItems = screen.queryAllByTestId("todo-list-item");
+      expect(todoListItems.length).toBe(0);
+    });
+    // describe("When one item is selected as Complete", () => {
+    //   it('should display one item in "completed" section', () => {
+    //     renderComponent();
+    //     const inputElement: HTMLInputElement = screen.getByRole("textbox");
+    //     fireEvent.change(inputElement, { target: { value: "test" } });
+    //     fireEvent.keyDown(inputElement, { key: "Enter" });
+
+    //     const todoListItem = screen.getByTestId("todo-list-item");
+    //     fireEvent.click(todoListItem);
+
+    //     const completedRadioElement = screen.getByLabelText("Completed");
+    //     fireEvent.click(completedRadioElement);
+    //     const todoListItems = screen.queryAllByTestId("todo-list-item");
+    //     expect(todoListItems.length).toBe(1);
+    //   });
+    // });
   });
 });

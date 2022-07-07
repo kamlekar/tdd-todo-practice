@@ -4,7 +4,7 @@ export const TodoFooter = () => {
   return (
     <div>
       <label>
-        <input type="radio" name="todo" value="all" />
+        <input type="radio" name="todo" value="all" defaultChecked />
         <span>All</span>
       </label>
       <label>

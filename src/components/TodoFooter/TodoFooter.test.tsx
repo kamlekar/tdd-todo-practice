@@ -12,4 +12,11 @@ describe("TodoFooter", () => {
     const footerElements = screen.getAllByRole("radio");
     expect(footerElements.length === 3).toBeTruthy();
   });
+
+  it('by default "All" is selected', () => {
+    renderComponent();
+    const footerElements: Array<HTMLInputElement> =
+      screen.getAllByRole("radio");
+    expect(footerElements[0].checked).toBeTruthy();
+  });
 });

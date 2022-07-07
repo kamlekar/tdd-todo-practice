@@ -2,7 +2,7 @@ import React, { useContext, KeyboardEventHandler } from "react";
 import { TodoListContext } from "../../contexts/useTodoContext";
 
 export const TodoInput = () => {
-  const [todoList, setTodoList] = useContext(TodoListContext);
+  const { todoList, setTodoList } = useContext(TodoListContext);
   const appendTodoList = (listItem: string) => {
     const newTodoList = [...todoList];
     newTodoList.push({ text: listItem });

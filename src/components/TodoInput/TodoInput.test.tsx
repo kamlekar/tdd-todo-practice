@@ -5,9 +5,25 @@ import {
   TodoListContext,
   TodoListProvider,
   TodoListProviderValue,
+  TodoListType,
 } from "../../contexts/useTodoContext";
 
-const renderComponent = (value: TodoListProviderValue = [[], () => {}]) => {
+const mockTodoList: TodoListType = [
+  {
+    text: "test",
+    completed: false,
+  },
+];
+
+const mockTodoListProviderValue: TodoListProviderValue = {
+  todoList: mockTodoList,
+  setTodoList: () => {},
+  filter: "all",
+  setFilter: () => {},
+};
+const renderComponent = (
+  value: TodoListProviderValue = mockTodoListProviderValue
+) => {
   render(
     <TodoListProvider value={value}>
       <TodoInput />

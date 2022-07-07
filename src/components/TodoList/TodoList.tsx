@@ -2,7 +2,7 @@ import React from "react";
 import { TodoListContext } from "../../contexts/useTodoContext";
 
 export const TodoList = () => {
-  const [todoList, setTodoList] = React.useContext(TodoListContext);
+  const { todoList } = React.useContext(TodoListContext);
 
   return (
     <>

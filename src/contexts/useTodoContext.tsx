@@ -5,6 +5,7 @@ export type TodoItem = {
   completed?: boolean;
 };
 export type TodoListType = Array<TodoItem>;
+export type FilterType = "all" | "active" | "completed";
 
 // {
 //   filter: 'all' | 'active' | 'completed',
@@ -12,32 +13,45 @@ export type TodoListType = Array<TodoItem>;
 //     todoList: TodoListType,
 //     setTodoList: React.Dispatch<React.SetStateAction<TodoListType>>,
 // }
-// export type TodoListProviderValue = {
-//   filter: "all" | "active" | "completed";
-//   setFilter: (filter: "all" | "active" | "completed") => void;
-//   todoList: TodoListType;
-//   setTodoList: React.Dispatch<React.SetStateAction<TodoListType>>;
-// }
+export type TodoListProviderValue = {
+  filter: FilterType;
+  setFilter: (filter: FilterType) => void;
+  todoList: TodoListType;
+  setTodoList: React.Dispatch<React.SetStateAction<TodoListType>>;
+};
 
-export type TodoListProviderValue = [
-  TodoListType,
-  React.Dispatch<React.SetStateAction<TodoListType>>
-];
+// export type TodoListProviderValue = [
+//   TodoListType,
+//   React.Dispatch<React.SetStateAction<TodoListType>>
+// ];
 
 type TodoListContextProps = {
   children: React.ReactNode;
   value?: TodoListProviderValue;
 };
 
-const defaultProviderValue: TodoListProviderValue = [[], () => {}];
+const defaultProviderValue: TodoListProviderValue = {
+  filter: "all",
+  setFilter: () => {},
+  todoList: [],
+  setTodoList: () => {},
+};
 export const TodoListContext =
   createContext<TodoListProviderValue>(defaultProviderValue);
 
 export const TodoListProvider = (props: TodoListContextProps) => {
-  const { value = [[]], children } = props;
-  const TodoListState = useState<TodoListType>(value[0]); // [todoList, setTodoList]
+  const { value = defaultProviderValue, children } = props;
+  const [todoList, setTodoList] = useState<TodoListType>(value.todoList); // [todoList, setTodoList]
+  const [filter, setFilter] = useState<FilterType>(value.filter); // [filter, setFilter]
   return (
-    <TodoListContext.Provider value={TodoListState}>
+    <TodoListContext.Provider
+      value={{
+        todoList,
+        setTodoList,
+        filter,
+        setFilter,
+      }}
+    >
       {children}
     </TodoListContext.Provider>
   );
