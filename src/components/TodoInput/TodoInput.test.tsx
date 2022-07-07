@@ -28,9 +28,17 @@ describe("Todo", () => {
     expect(inputElement.value).toBe("");
   });
 
-  it("ignores input on Enter key press, when no value is added", () => {
+  it("clears input on Enter key press, when no value is added", () => {
     renderComponent();
     const inputElement: HTMLInputElement = screen.getByRole("textbox");
+    fireEvent.keyDown(inputElement, { key: "Enter" });
+    expect(inputElement.value).toBe("");
+  });
+
+  it("clears input on Enter key press, when only spaces are added", () => {
+    renderComponent();
+    const inputElement: HTMLInputElement = screen.getByRole("textbox");
+    fireEvent.change(inputElement, { target: { value: "   " } });
     fireEvent.keyDown(inputElement, { key: "Enter" });
     expect(inputElement.value).toBe("");
   });

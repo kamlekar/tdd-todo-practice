@@ -12,11 +12,11 @@ export const TodoInput = () => {
     if (e.key === "Enter") {
       e.preventDefault();
       const inputElement: HTMLInputElement = e.currentTarget;
-      const todoText = inputElement.value;
+      const todoText = inputElement.value.trim();
       inputElement.value = "";
       console.log(todoText);
 
-      appendTodoList(todoText);
+      if (todoText) appendTodoList(todoText);
     }
   };
   return (

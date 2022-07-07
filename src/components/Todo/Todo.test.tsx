@@ -40,4 +40,21 @@ describe("Todo", () => {
 
     expect(listItem.textContent).toEqual("test");
   });
+
+  it("ignores input on Enter key press, when no value is added", () => {
+    renderComponent();
+    const inputElement: HTMLInputElement = screen.getByRole("textbox");
+    fireEvent.keyDown(inputElement, { key: "Enter" });
+    const todoListItems = screen.queryAllByTestId("todo-list-item");
+    expect(todoListItems.length).toBe(0);
+  });
+
+  it("ignores input on Enter key press, when only spaces are added", () => {
+    renderComponent();
+    const inputElement: HTMLInputElement = screen.getByRole("textbox");
+    fireEvent.change(inputElement, { target: { value: "   " } });
+    fireEvent.keyDown(inputElement, { key: "Enter" });
+    const todoListItems = screen.queryAllByTestId("todo-list-item");
+    expect(todoListItems.length).toBe(0);
+  });
 });
