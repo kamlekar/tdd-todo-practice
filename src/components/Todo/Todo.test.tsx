@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Todo } from "./Todo";
-import {
-  TodoListContext,
-  TodoListProviderValue,
-} from "../../contexts/useTodoContext";
+import { TodoListProvider } from "../../contexts/useTodoContext";
 
 const renderComponent = () => {
-  render(<Todo />);
+  render(
+    <TodoListProvider>
+      <Todo />
+    </TodoListProvider>
+  );
 };
 
 describe("Todo", () => {
@@ -54,6 +55,22 @@ describe("Todo", () => {
     const inputElement: HTMLInputElement = screen.getByRole("textbox");
     fireEvent.change(inputElement, { target: { value: "   " } });
     fireEvent.keyDown(inputElement, { key: "Enter" });
+    const todoListItems = screen.queryAllByTestId("todo-list-item");
+    expect(todoListItems.length).toBe(0);
+  });
+
+  it('should update the context todo list, when "All" is selected', () => {
+    renderComponent();
+    const completedRadioElement = screen.getByLabelText("All");
+    fireEvent.click(completedRadioElement);
+    const todoListItems = screen.queryAllByTestId("todo-list-item");
+    expect(todoListItems.length).toBe(0);
+  });
+
+  it('should update the context todo list, when "Completed" is selected', () => {
+    renderComponent();
+    const completedRadioElement = screen.getByLabelText("Completed");
+    fireEvent.click(completedRadioElement);
     const todoListItems = screen.queryAllByTestId("todo-list-item");
     expect(todoListItems.length).toBe(0);
   });

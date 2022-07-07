@@ -5,7 +5,7 @@ export const TodoInput = () => {
   const [todoList, setTodoList] = useContext(TodoListContext);
   const appendTodoList = (listItem: string) => {
     const newTodoList = [...todoList];
-    newTodoList.push({ text: listItem, status: "Active" });
+    newTodoList.push({ text: listItem });
     setTodoList([...newTodoList]);
   };
   const addTodoListItem: KeyboardEventHandler<HTMLInputElement> = (e) => {
