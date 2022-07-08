@@ -82,7 +82,9 @@ describe("Todo", () => {
       fireEvent.change(inputElement, { target: { value: "test" } });
       fireEvent.keyDown(inputElement, { key: "Enter" });
 
-      const completedRadioElement = screen.getByLabelText("Completed");
+      const completedRadioElement = screen.getByRole("radio", {
+        name: "Completed",
+      });
       fireEvent.click(completedRadioElement);
 
       const todoListItems = screen.queryAllByTestId("todo-list-item");
